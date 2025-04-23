@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atomic - Formá tu criterio financiero</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #1C1C1C;
+      color: #FFFFFF;
+      scroll-behavior: smooth;
+    }
+    header {
+      background: #1C1C1C;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 1000;
+    }
+    header img {
+      height: 50px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #A3F7BF;
+    }
+    .button {
+      background: #A3F7BF;
+      border: none;
+      color: #000000;
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+    .button:hover {
+      background: #56C596;
+      color: #FFFFFF;
+    }
+    section {
+      padding: 100px 20px 60px 20px;
+      text-align: center;
+    }
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .cards {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: #FFFFFF;
+      color: #000000;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(255,255,255,0.1);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+    }
+    footer {
+      background: #1C1C1C;
+      color: white;
+      padding: 2rem;
+      font-size: 0.9rem;
+    }
+    .team-grid {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .team-member {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .team-member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #A3F7BF;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #1C1C1C;
+        position: absolute;
+        top: 80px;
+        right: 20px;
+        border: 1px solid #A3F7BF;
+        padding: 1rem;
+      }
+      nav.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('nav-menu');
+      nav.classList.toggle('active');
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <img src="logo_atomic.png" alt="Logo Atomic">
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <nav id="nav-menu">
+      <a href="#inicio">Inicio</a>
+      <a href="#soluciones">Programas</a>
+      <a href="#tecnologia">Nuestra propuesta</a>
+      <a href="#equipo">Fundadores</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section id="inicio" class="hero">
+    <h2 style="font-size: 2.5rem;">Formá tu criterio financiero con Atomic</h2>
+    <p style="font-size: 1.2rem; margin: 20px 0;">Educación real en mercados financieros, bursátiles y cripto.</p>
+    <a href="#soluciones" class="button">Ver programas</a>
+  </section>
+
+  <section id="soluciones">
+    <h3 style="font-size: 2rem;">¿Cómo funciona?</h3>
+    <div class="cards">
+      <div class="card">Aprendé con profesionales expertos en operativa bursátil, arbitraje financiero y oportunidades blockchain.</div>
+      <div class="card">Accedé a libros, guías y mentorías para desarrollar criterio propio de inversión.</div>
+      <div class="card">Conectate a nuestras clases abiertas, comunidad de WhatsApp y eventos presenciales.</div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <h3 style="font-size: 2rem; margin-bottom: 1rem;">Sumate a la revolución de la educación financiera</h3>
+    <a href="#inicio" class="button">Unirme ahora</a>
+  </section>
+
+  <footer>
+    <p>© 2025 Atomic - Todos los derechos reservados.</p>
+    <div style="margin-top: 10px;">
+      <a href="#" style="margin-right: 1rem; color: #A3F7BF;">Instagram</a>
+      <a href="#" style="margin-right: 1rem; color: #A3F7BF;">Twitter</a>
+      <a href="#" style="color: #A3F7BF;">YouTube</a>
+    </div>
+  </footer>
+</body>
+</html>
