@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Atomic – Formá tu criterio financiero</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===== Body & Background ===== */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('Background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #FFF;
+      scroll-behavior: smooth;
+    }
+    main { padding-top: 140px; }
+
+    /* ===== Price Wheel ===== */
+    .price-wheel {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.8);
+      overflow: hidden; white-space: nowrap;
+      height: 40px; display: flex; align-items: center;
+      z-index: 2000;
+    }
+    .price-wheel .item {
+      display: inline-block; margin: 0 1.5rem;
+      font-size: 0.9rem; color: #A3F7BF; font-weight: 600;
+    }
+    @keyframes scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .price-wheel .inner {
+      display: inline-block;
+      animation: scroll 20s linear infinite;
+    }
+
+    /* ===== Header & Nav ===== */
+    header {
+      background: rgba(0,0,0,0.6);
+      position: fixed; top: 40px; left: 0; right: 0;
+      height: 60px; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 2rem;
+      z-index: 1500;
+    }
+    header img { height: 40px; object-fit: contain; }
+    .menu-toggle {
+      display: none; font-size: 2rem; background: none;
+      border: none; color: white; cursor: pointer;
+    }
+    nav {
+      display: flex; gap: 1.5rem;
+    }
+    nav a {
+      color: white; text-decoration: none;
+      transition: color 0.3s; font-weight: 500;
+    }
+    nav a:hover { color: #A3F7BF; }
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      nav {
+        display: none;
+        position: absolute; top: 100%; right: 2rem;
+        flex-direction: column;
+        background: rgba(0,0,0,0.9);
+        padding: 1rem; border: 1px solid #A3F7BF;
+      }
+      nav.active { display: flex; }
+    }
+
+    /* ===== Hero & Typewriter ===== */
+    .hero {
+      height: calc(100vh - 140px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center; padding: 0 1rem;
+    }
+    h2.typewriter {
+      font-size: 2.5rem; white-space: nowrap;
+      overflow: hidden; border-right: .15em solid #A3F7BF;
+      width: 0;
+      animation: typing 3s steps(40,end) 1s forwards,
+                 blink-caret .75s step-end infinite;
+    }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes blink-caret { 50% { border-color: transparent; } }
+
+    .button {
+      margin-top: 1.5rem; background: #A3F7BF;
+      color: #000; padding: .8rem 1.5rem;
+      border: none; border-radius: 8px;
+      font-weight: 600; text-decoration: none;
+      transition: background .3s, color .3s;
+    }
+    .button:hover { background: #56C596; color: #FFF; }
+
+    /* ===== Sections ===== */
+    section { padding: 60px 2rem; }
+    h3 { font-size: 2rem; margin-bottom: 1rem; color: #A3F7BF; }
+
+    /* ==== Cards & Grid ==== */
+    .cards { display: grid; gap: 1.5rem; }
+    @media (min-width: 768px) {
+      .cards { grid-template-columns: repeat(3,1fr); }
+    }
+    .card {
+      background: rgba(255,255,255,0.9);
+      color: #000; padding: 1.5rem;
+      border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform .3s;
+    }
+    .card:hover { transform: translateY(-8px); }
+
+    .testimonial { font-style: italic; margin: .5rem 0; }
+
+    /* ==== Video + Overlay ==== */
+    #video-section { position: relative; text-align: center; }
+    #intro-video {
+      width: 100%; max-width: 800px; height: 450px;
+      filter: blur(8px);
+    }
+    #video-overlay {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      background: rgba(0,0,0,0.7); padding: 2rem;
+      border-radius: 8px; color: #FFF; max-width: 90%;
+    }
+    #video-overlay input, #video-overlay button {
+      width: 100%; padding: .8rem; margin: .5rem 0;
+      border: none; border-radius: 4px;
+    }
+    #video-overlay button { background: #A3F7BF; font-weight: 600; cursor: pointer; }
+
+    /* ==== Arbitraje de Dólar ==== */
+    #arbitraje table {
+      width: 100%; max-width: 600px; margin: 0 auto;
+      border-collapse: collapse; background: rgba(0,0,0,0.6);
+    }
+    #arbitraje th, #arbitraje td {
+      padding: .75rem 1rem; border-bottom:1px solid #444;
+      text-align: center; color: #FFF;
+    }
+
+    /* ==== Cotizaciones del Día ==== */
+    #cotizaciones {
+      background: rgba(0,0,0,0.6);
+      padding: 1rem; border-radius: 8px;
+      max-width: 600px; margin: 0 auto;
+      color: #FFF; font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Price Wheel -->
+  <div class="price-wheel">
+    <div class="inner" id="price-wheel"></div>
+    <div class="inner" id="price-wheel-dup"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <img src="logo_atomic.png" alt="Logo Atomic">
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <nav id="nav-menu">
+      <a href="#inicio">Inicio</a>
+      <a href="#que-es">¿Qué es Atomic?</a>
+      <a href="#beneficios">Beneficios</a>
+      <a href="#cursos">Cursos</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#video-section">Video Intro</a>
+      <a href="#arbitraje">Arbitraje</a>
+      <a href="#cotiza">Cotizaciones</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="inicio" class="hero">
+      <h2 class="typewriter">Formá tu criterio financiero con Atomic</h2>
+      <p>Únete a Atomic, la plataforma integral para potenciar tu crecimiento financiero, dominar mercados bursátiles, criptomonedas y alcanzar la independencia económica que siempre buscaste.</p>
+      <a href="#que-es" class="button">Comenzá Hoy</a>
+    </section>
+
+    <!-- ¿Qué es Atomic? -->
+    <section id="que-es">
+      <h3>¿Qué es Atomic?</h3>
+      <p>Atomic es una comunidad exclusiva que ofrece contenido educativo premium sobre Finanzas, Criptomonedas y Mercados Bursátiles. Nuestro propósito es brindarte información de calidad, eventos exclusivos y el acompañamiento constante de profesionales reconocidos.</p>
+    </section>
+
+    <!-- Beneficios -->
+    <section id="beneficios">
+      <h3>Beneficios de Suscribirte a Atomic</h3>
+      <ul>
+        <li>Acceso Ilimitado a contenido de calidad en finanzas, criptomonedas y trading.</li>
+        <li>Eventos Presenciales Exclusivos con expertos y líderes del mercado.</li>
+        <li>Comunidad Privada para consultar, debatir y crecer acompañado de expertos y otros miembros.</li>
+        <li>Actualización Permanente con noticias y oportunidades relevantes del mercado.</li>
+      </ul>
+    </section>
+
+    <!-- Cursos Destacados -->
+    <section id="cursos">
+      <h3>Cursos Destacados</h3>
+      <div class="cards">
+        <div class="card">
+          <h4>Trading Profesional</h4>
+          <p>Aprendé técnicas y estrategias de trading utilizadas por traders expertos. Optimiza tus entradas y salidas del mercado.</p>
+        </div>
+        <div class="card">
+          <h4>Arbitraje Financiero</h4>
+          <p>Dominá el arte de aprovechar diferencias de precios entre distintos mercados y activos para generar ganancias constantes.</p>
+        </div>
+        <div class="card">
+          <h4>Estrategia de Airdrops</h4>
+          <p>Conocé cómo participar en campañas de airdrops para maximizar tus ganancias en criptomonedas, minimizando riesgos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section id="testimonios">
+      <h3>Testimonios de Nuestra Comunidad</h3>
+      <p class="testimonial">"Atomic transformó mi manera de entender el mercado. Los eventos presenciales y la comunidad son un valor agregado inigualable". – Juan Pérez</p>
+      <p class="testimonial">"Gracias a los cursos y la información constante, pude mejorar significativamente mis rendimientos financieros". – María González</p>
+    </section>
+
+    <!-- Video Ilustrativo -->
+    <section id="video-section">
+      <iframe id="intro-video" src="https://www.youtube.com/embed/cP-nE5tmK2Y" frameborder="0" allowfullscreen></iframe>
+      <div id="video-overlay">
+        <h4>Para ver el video, registrate</h4>
+        <form id="registration-form">
+          <input type="email" id="email" placeholder="Tu email" required>
+          <input type="password" id="password" placeholder="Contraseña" required>
+          <button type="submit">Registrarme</button>
+        </form>
+      </div>
+    </section>
+    <!-- Sección Cotizaciones del Día -->
+    <section id="cotiza">
+      <h3 style="text-align:center; color:#A3F7BF; margin-bottom:1rem;">
+        Cotizaciones del día de hoy
+      </h3>
+      <div id="cotizaciones">Cargando...</div>
+    </section>
+
+    <!-- CTA Final -->
+    <section id="contacto">
+      <h3>No esperes más. Únete a Atomic y transformá tu futuro financiero</h3>
+      <a href="#" class="button">Suscribite Ahora</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer style="text-align:center; padding:2rem; background:rgba(0,0,0,0.6);">
+    © 2025 Atomic – Todos los derechos reservados.
+  </footer>
+
+  <script>
+    // ===== Menu Toggle =====
+    function toggleMenu(){
+      document.getElementById('nav-menu').classList.toggle('active');
+    }
+
+    // ===== Price Wheel =====
+    async function loadPrices(){
+      const ids = [
+        'bitcoin','ethereum','binancecoin','bitcoin-gold','solana','cardano',
+        'ondo','elrond-erd-2','ethereum-classic','tump','dogecoin','chainlink',
+        'ripple','kusama','decentraland','uniswap','polkadot','curve-dao-token','avalanche-2'
+      ].join(',');
+      const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`);
+      const data = await res.json();
+      const container = document.getElementById('price-wheel');
+      container.innerHTML = '';
+      Object.entries(data).forEach(([coin,val])=>{
+        const price = val.usd ? `$${val.usd.toLocaleString()}` : 'N/A';
+        const item = document.createElement('div');
+        item.className = 'item';
+        item.textContent = `${coin.toUpperCase()}: ${price}`;
+        container.appendChild(item);
+      });
+      document.getElementById('price-wheel-dup').innerHTML = container.innerHTML;
+    }
+    loadPrices();
+    setInterval(loadPrices,30000);
+
+    // ===== Registro Video =====
+    const form = document.getElementById('registration-form');
+    const overlay = document.getElementById('video-overlay');
+    const video = document.getElementById('intro-video');
+    if (localStorage.getItem('atomicUser')){
+      overlay.style.display = 'none';
+      video.style.filter = 'none';
+    }
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      localStorage.setItem('atomicUser', JSON.stringify({ email: form.email.value }));
+      overlay.style.display = 'none';
+      video.style.filter = 'none';
+    });
+
+    // ===== Arbitraje de Dólar (Dolarsi gratis) =====
+    async function loadArbitraje() {
+      const res  = await fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales');
+      const data = await res.json();
+      const tipos = [
+        { keyword: 'oficial',   label: 'Dólar Oficial' },
+        { keyword: 'blue',      label: 'Dólar Blue' },
+        { keyword: 'bolsa',     label: 'Dólar Bolsa' },
+        { keyword: 'contado',   label: 'Dólar CCL' },
+        { keyword: 'turista',   label: 'Dólar Tarjeta' },
+        { keyword: 'mayorista', label: 'Dólar Mayorista' }
+      ];
+      const tbody = document.querySelector('#arbitraje tbody');
+      tbody.innerHTML = '';
+      tipos.forEach(t => {
+        const item = data.find(x =>
+          x.casa.nombre.toLowerCase().includes(t.keyword)
+        );
+        if (!item) return;
+        const compra = parseFloat(item.casa.compra.replace(',', '.')) || 0;
+        const venta  = parseFloat(item.casa.venta.replace(',', '.'))  || 0;
+        if (!compra || !venta) return;
+        const hora = new Date().toLocaleTimeString();
+        const tr   = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${t.label}</td>
+          <td>$${compra.toFixed(2)}</td>
+          <td>$${venta.toFixed(2)}</td>
+          <td>${hora}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+    loadArbitraje();
+    setInterval(loadArbitraje,60000);
+
+    // ===== Cotizaciones del Día (API genérica) =====
+    async function obtenerCotizaciones() {
+      const url = 'https://dolarapi.com/v1/dolares'; // ajusta a tu API real
+      const contenedor = document.getElementById('cotizaciones');
+      try {
+        const respuesta = await fetch(url);
+        const datos = await respuesta.json();
+        contenedor.innerHTML = '';
+        datos.forEach(d => {
+          const p = document.createElement('p');
+          p.textContent = `${d.nombre}: $${d.venta}`;
+          contenedor.appendChild(p);
+        });
+      } catch {
+        contenedor.textContent = 'No se pudieron cargar las cotizaciones.';
+      }
+    }
+    obtenerCotizaciones();
+    setInterval(obtenerCotizaciones,60000);
+  </script>
+</body>
+</html>
