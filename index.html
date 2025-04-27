@@ -15,25 +15,153 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <style>
-    :root { --bg: #1C1C1C; --text: #FFF; --accent: #A3F7BF; --light-bg: #FFF; --light-text: #000; }
-    body { margin:0; font-family:'Poppins',sans-serif; background:var(--bg); color:var(--text); transition:.3s; }
-    body.light-mode { background:var(--light-bg); color:var(--light-text); }
+    :root {
+      --bg: #1C1C1C;
+      --text: #FFF;
+      --accent: #A3F7BF;
+      --light-bg: #FFF;
+      --light-text: #000;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: .3s;
+    }
+    body.light-mode {
+      background: var(--light-bg);
+      color: var(--light-text);
+    }
     /* Theme switch */
-    .theme-switch { position:fixed; top:1rem; right:1rem; z-index:999; }
-    .theme-switch input{display:none;} .theme-switch label{cursor:pointer;display:block;width:50px;height:24px;background:#ccc;border-radius:34px;position:relative;transition:.3s;}
-    .theme-switch label::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.3s;}
-    .theme-switch input:checked+label{background:var(--accent);} .theme-switch input:checked+label::after{transform:translateX(26px);}    
-    /* Video Section (antes Hero) */
-    #video {position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
-    #video video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;transform:translate(-50%, -50%);z-index:-1;opacity:0.6;}
-    #video .inner{z-index:2;} .btn-cta{padding:1rem 2rem;background:var(--accent);border:none;border-radius:4px;font-size:1.2rem;font-weight:600;cursor:pointer;}
-    /* Sections */
-    section{padding:60px 20px;} h2,h3{margin-bottom:1rem;} .grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
-    .card{background:#111;padding:2rem;border-radius:8px;transition:.3s;} .card:hover{transform:translateY(-4px);box-shadow:0 8px 16px rgba(0,0,0,0.2);}    
-    /* FAQ */ details{margin-bottom:1rem;} summary{cursor:pointer;font-weight:600;}
-    /* ROI */ #roi{display:flex;flex-direction:column;align-items:center;} #roi input{width:120px;padding:.5rem;margin:.5rem;} #roi .result{margin-top:1rem;font-weight:600;}
-    /* Countdown */ #countdown{font-size:1.5rem;font-weight:600;}
-    /* Exit Popup */ #exitPopup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);align-items:center;justify-content:center;}#exitPopup .content{background:#fff;color:#000;padding:2rem;border-radius:8px;text-align:center;}#exitPopup .close{cursor:pointer;margin-top:1rem;color:var(--accent);}    
+    .theme-switch {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 999;
+    }
+    .theme-switch input { display: none; }
+    .theme-switch label {
+      cursor: pointer;
+      display: block;
+      width: 50px;
+      height: 24px;
+      background: #ccc;
+      border-radius: 34px;
+      position: relative;
+      transition: .3s;
+    }
+    .theme-switch label::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      transition: .3s;
+    }
+    .theme-switch input:checked + label {
+      background: var(--accent);
+    }
+    .theme-switch input:checked + label::after {
+      transform: translateX(26px);
+    }
+
+    /* Hero con imagen de fondo */
+    #video {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: url('Background.jpg') center/cover no-repeat;
+    }
+    #video .inner {
+      z-index: 2;
+    }
+    .btn-cta {
+      padding: 1rem 2rem;
+      background: var(--accent);
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Secciones generales */
+    section { padding: 60px 20px; }
+    h2, h3 { margin-bottom: 1rem; }
+    .grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .card {
+      background: #111;
+      padding: 2rem;
+      border-radius: 8px;
+      transition: .3s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    /* FAQ */
+    details { margin-bottom: 1rem; }
+    summary { cursor: pointer; font-weight: 600; }
+
+    /* ROI */
+    #roi {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #roi input {
+      width: 120px;
+      padding: .5rem;
+      margin: .5rem;
+    }
+    #roi .result {
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    /* Countdown */
+    #countdown {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    /* Exit Popup */
+    #exitPopup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+    }
+    #exitPopup .content {
+      background: #fff;
+      color: #000;
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    #exitPopup .close {
+      cursor: pointer;
+      margin-top: 1rem;
+      color: var(--accent);
+    }
   </style>
 </head>
 <body>
@@ -42,118 +170,58 @@
     <input type="checkbox" id="toggleTheme"><label for="toggleTheme"></label>
   </div>
 
-  <!-- Video Section con id cambiado -->
+  <!-- Hero con imagen de fondo -->
   <section id="video">
-    <video src="video-bg.mp4" autoplay muted loop></video>
     <div class="inner" data-aos="fade-up">
       <h1>Formá tu criterio financiero con Atomic</h1>
       <button class="btn-cta">Únete a Atomic</button>
     </div>
   </section>
 
-  <!-- Dinámico: Price Wheel Live -->
-  <div class="price-wheel" data-aos="fade-right">
-    <div id="ticker"></div>
-  </div>
-
-  <!-- Beneficios -->
-  <section id="benefits">
-    <h2 data-aos="fade-up">Nuestros Beneficios</h2>
-    <div class="grid">
-      <div class="card" data-aos="zoom-in"><img src="icon1.svg" alt="Análisis en vivo"><h3>Análisis en vivo</h3><p>Webinars en tiempo real.</p></div>
-      <div class="card" data-aos="zoom-in" data-aos-delay="100"><img src="icon2.svg" alt="Comunidad"><h3>Comunidad 24/7</h3><p>Foro activo y soporte.</p></div>
-      <div class="card" data-aos="zoom-in" data-aos-delay="200"><img src="icon3.svg" alt="Certificado"><h3>Certificado oficial</h3><p>Respaldo profesional.</p></div>
-      <div class="card" data-aos="zoom-in" data-aos-delay="300"><img src="icon4.svg" alt="Eventos"><h3>Eventos exclusivos</h3><p>Workshops presenciales.</p></div>
-    </div>
-  </section>
-
-  <!-- Testimonios Swiper -->
-  <section id="testimonials">
-    <h2 data-aos="fade-up">Testimonios</h2>
-    <div class="swiper-container" data-aos="fade-up" data-aos-delay="200">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide card"><img src="user1.jpg" alt><p>"Aumenté mi ROI 30%."</p></div>
-        <div class="swiper-slide card"><img src="user2.jpg" alt><p>"Aprendo cada día."</p></div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <h2 data-aos="fade-up">Preguntas Frecuentes</h2>
-    <details data-aos="fade-up"><summary>¿Cómo funciona la suscripción?</summary><p>Acceso completo a cursos y comunidad.</p></details>
-    <details data-aos="fade-up"><summary>¿Puedo cancelar?</summary><p>Cancelación en cualquier momento.</p></details>
-  </section>
-
-  <!-- Módulo Gratis -->
-  <section id="free-course" data-aos="fade-up">
-    <h2>Prueba un módulo gratis</h2>
-    <form id="freeForm"><input type="email" placeholder="Tu email" required><button type="submit">Descargar</button></form>
-  </section>
-
-  <!-- ROI -->
-  <section id="roi" data-aos="fade-up">
-    <h2>Calcula tu ROI</h2>
-    <input type="number" id="capital" placeholder="Capital inicial"><input type="number" id="months" placeholder="Meses"> <button id="calcBtn">Calcular</button>
-    <div class="result" id="roiResult"></div>
-  </section>
-
-  <!-- Countdown evento -->
-  <section id="event" data-aos="fade-up">
-    <h2>Próximo webinar</h2>
-    <div id="countdown"></div>
-  </section>
-
-  <!-- Partners -->
-  <section id="partners" data-aos="fade-up">
-    <h2>Aliados y medios</h2>
-    <div class="grid"><img src="logo1.png" alt><img src="logo2.png" alt></div>
-  </section>
-
-  <!-- Confianza -->
-  <section id="trust" data-aos="fade-up">
-    <h2>Garantías</h2>
-    <div class="grid">
-      <div class="card"><img src="moneyback.svg" alt><p>30 días devolución</p></div>
-      <div class="card"><img src="cert.svg" alt><p>Certificación oficial</p></div>
-    </div>
-  </section>
-
-  <!-- Exit-intent popup -->
+  <!-- Resto de secciones (sin cambios) -->
+  <div class="price-wheel" data-aos="fade-right"><div id="ticker"></div></div>
+  <section id="benefits"><h2 data-aos="fade-up">Nuestros Beneficios</h2><div class="grid"><div class="card" data-aos="zoom-in"><img src="icon1.svg" alt="Análisis en vivo"><h3>Análisis en vivo</h3><p>Webinars en tiempo real.</p></div><div class="card" data-aos="zoom-in" data-aos-delay="100"><img src="icon2.svg" alt="Comunidad"><h3>Comunidad 24/7</h3><p>Foro activo y soporte.</p></div><div class="card" data-aos="zoom-in" data-aos-delay="200"><img src="icon3.svg" alt="Certificado"><h3>Certificado oficial</h3><p>Respaldo profesional.</p></div><div class="card" data-aos="zoom-in" data-aos-delay="300"><img src="icon4.svg" alt="Eventos"><h3>Eventos exclusivos</h3><p>Workshops presenciales.</p></div></div></section>
+  <section id="testimonials"><h2 data-aos="fade-up">Testimonios</h2><div class="swiper-container" data-aos="fade-up" data-aos-delay="200"><div class="swiper-wrapper"><div class="swiper-slide card"><img src="user1.jpg" alt><p>"Aumenté mi ROI 30%."</p></div><div class="swiper-slide card"><img src="user2.jpg" alt><p>"Aprendo cada día."</p></div></div><div class="swiper-pagination"></div></div></section>
+  <section id="faq"><h2 data-aos="fade-up">Preguntas Frecuentes</h2><details data-aos="fade-up"><summary>¿Cómo funciona la suscripción?</summary><p>Acceso completo a cursos y comunidad.</p></details><details data-aos="fade-up"><summary>¿Puedo cancelar?</summary><p>Cancelación en cualquier momento.</p></details></section>
+  <section id="free-course" data-aos="fade-up"><h2>Prueba un módulo gratis</h2><form id="freeForm"><input type="email" placeholder="Tu email" required><button type="submit">Descargar</button></form></section>
+  <section id="roi" data-aos="fade-up"><h2>Calcula tu ROI</h2><input type="number" id="capital" placeholder="Capital inicial"><input type="number" id="months" placeholder="Meses"><button id="calcBtn">Calcular</button><div class="result" id="roiResult"></div></section>
+  <section id="event" data-aos="fade-up"><h2>Próximo webinar</h2><div id="countdown"></div></section>
+  <section id="partners" data-aos="fade-up"><h2>Aliados y medios</h2><div class="grid"><img src="logo1.png" alt><img src="logo2.png" alt></div></section>
+  <section id="trust" data-aos="fade-up"><h2>Garantías</h2><div class="grid"><div class="card"><img src="moneyback.svg" alt><p>30 días devolución</p></div><div class="card"><img src="cert.svg" alt><p>Certificación oficial</p></div></div></section>
   <div id="exitPopup"><div class="content"><p>¿Te vas sin registrarte? Obtén un 10% off hoy!</p><button class="close">Cerrar</button></div></div>
-
   <!-- Scripts -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
   <script>
-    // Theme toggle
     document.getElementById('toggleTheme').addEventListener('change', e => document.body.classList.toggle('light-mode', e.target.checked));
-    // AOS init
     AOS.init({ duration: 800, once: true });
-    // Swiper init
     new Swiper('.swiper-container', { loop:true, autoplay:{delay:5000}, pagination:{el:'.swiper-pagination', clickable:true} });
-    // ROI calc
     document.getElementById('calcBtn').onclick = () => {
-      const c=+document.getElementById('capital').value, m=+document.getElementById('months').value;
-      const roi = ((c*(0.05*m) - c)/c*100).toFixed(1);
+      const c = +document.getElementById('capital').value;
+      const m = +document.getElementById('months').value;
+      const roi = ((c * (0.05 * m) - c) / c * 100).toFixed(1);
       document.getElementById('roiResult').textContent = `ROI estimado: ${roi}%`;
     };
-    // Countdown
-    const target=new Date('2025-05-10T20:00:00-03:00');
-    setInterval(()=>{
-      const d=target-new Date();
-      const days=Math.floor(d/86400000), hrs=new Date(d).getUTCHours(), mins=new Date(d).getUTCMinutes(), secs=new Date(d).getUTCSeconds();
-      document.getElementById('countdown').textContent=`${days}d ${hrs}h ${mins}m ${secs}s`;
-    },1000);
-    // Exit intent
-    let shown=false;
-    document.addEventListener('mouseout', e=>{ if(e.clientY<10 && !shown){document.getElementById('exitPopup').style.display='flex';shown=true;} });
-    document.querySelector('#exitPopup .close').onclick = ()=> document.getElementById('exitPopup').style.display='none';
-    // WebSocket ticker (placeholder)
-    const ws=new WebSocket('wss://example.com/ticker');
+    const target = new Date('2025-05-10T20:00:00-03:00');
+    setInterval(() => {
+      const d = target - new Date();
+      const days = Math.floor(d / 86400000);
+      const hrs = new Date(d).getUTCHours();
+      const mins = new Date(d).getUTCMinutes();
+      const secs = new Date(d).getUTCSeconds();
+      document.getElementById('countdown').textContent = `${days}d ${hrs}h ${mins}m ${secs}s`;
+    }, 1000);
+    let shown = false;
+    document.addEventListener('mouseout', e => {
+      if (e.clientY < 10 && !shown) {
+        document.getElementById('exitPopup').style.display = 'flex';
+        shown = true;
+      }
+    });
+    document.querySelector('#exitPopup .close').onclick = () => document.getElementById('exitPopup').style.display = 'none';
+    const ws = new WebSocket('wss://example.com/ticker');
     ws.onmessage = msg => document.getElementById('ticker').textContent = JSON.parse(msg.data).price;
   </script>
 </body>
