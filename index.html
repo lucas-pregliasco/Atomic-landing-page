@@ -2,441 +2,201 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Atomic – Formá tu criterio financiero</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <meta name="description" content="Atomic: suscripción de élite en finanzas, crypto y bolsa. Cursos, comunidad y eventos en vivo.">
+  <meta property="og:title" content="Atomic – Formá tu criterio financiero">
+  <meta property="og:description" content="Atomic: suscripción de élite en finanzas, crypto y bolsa. Cursos, comunidad y eventos en vivo.">
+  <meta property="og:image" content="https://tusitio.com/og-image.jpg">
+  <!-- Preload tipografía -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" as="style" onload="this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+  <!-- Swiper & AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <style>
-    /* ===== Reset & Base ===== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
+    :root {
+      --bg-color: #1C1C1C;
+      --text-color: #FFFFFF;
+      --accent-color: #A3F7BF;
+      --light-bg: #FFFFFF;
+      --light-text: #000000;
+    }
     body {
+      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: url('Background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #FFF;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       scroll-behavior: smooth;
-      line-height: 1.5;
+      transition: background-color .3s, color .3s;
     }
-    a { text-decoration: none; }
-    ul { list-style: none; }
-
-    /* ===== Price Wheel ===== */
-    .price-wheel {
-      position: fixed; top: 0; left: 0; right: 0;
-      background: #111; overflow: hidden;
-      padding: .5rem 0; z-index: 1001;
+    body.light-mode {
+      background-color: var(--light-bg);
+      color: var(--light-text);
     }
-    .wheel-container {
-      display: inline-flex; white-space: nowrap;
-      animation: scroll 30s linear infinite;
+    /* Tema claro/oscuro */
+    .theme-switch { position: fixed; top: 1rem; right: 1rem; z-index: 9999; }
+    .theme-switch input { display: none; }
+    .theme-switch .slider {
+      width: 50px; height: 24px; background: #ccc; border-radius: 34px;
+      position: relative; cursor: pointer; transition: background .3s;
     }
-    .wheel-item {
-      flex: 0 0 auto;
-      margin: 0 .75rem;
-      font-size: .8rem;
-      color: #A3F7BF;
-      text-transform: capitalize;
-    }
-    @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* ===== Header ===== */
-    header {
-      position: fixed; top: 2.5rem; left: 0; right: 0;
-      background: rgba(0,0,0,0.6);
-      height: 56px; display: flex;
-      align-items: center; justify-content: space-between;
-      padding: 0 1rem; z-index: 1000;
-      transition: height .3s;
-    }
-    header img { height: 36px; }
-    .menu-toggle {
-      display: none; font-size: 1.8rem;
-      background: none; border: none; color: #FFF;
-    }
-    nav {
-      display: flex; gap: .75rem; flex-wrap: wrap;
-    }
-    nav a {
-      color: #FFF; font-weight: 500;
-      padding: .5rem .75rem;
-      border-radius: 4px;
-    }
-    nav a:hover { background: rgba(163,247,191, .2); }
-
-    /* ===== Hero ===== */
-    main { padding-top: 112px; }
-    .hero {
-      min-height: calc(100vh - 112px);
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      text-align: center; padding: 0 1rem;
-    }
-    .hero h2 {
-      font-size: 2rem; max-width: 90%;
-      overflow: hidden; border-right: .15em solid #A3F7BF;
-      white-space: nowrap;
-      animation: typing 3s steps(40,end) 1s forwards,
-                 blink-caret .75s step-end infinite;
-      width: 0;
-    }
-    @keyframes typing { from{width:0} to{width:100%} }
-    @keyframes blink-caret {50%{border-color:transparent}}
-
-    .hero p {
-      margin-top: 1rem; font-size: 1rem; max-width: 300px;
-    }
-    .button {
-      margin-top: 1.25rem;
-      background: #A3F7BF; color: #000;
-      padding: .6rem 1.2rem; border: none;
-      border-radius: 6px; font-weight: 600;
-      transition: background .3s;
-    }
-    .button:hover { background: #56C596; }
-
-    /* ===== Sections ===== */
-    section {
-      padding: 60px 1rem;
-    }
-    section h3 {
-      font-size: 1.4rem; color: #A3F7BF;
-      margin-bottom: 1rem; text-align: center;
-    }
-    section p, section ul { max-width: 360px; margin: auto; font-size: .95rem; }
-
-    /* ===== Cards ===== */
-    .cards {
-      display: grid; gap: .75rem;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      max-width: 1000px; margin: 1rem auto;
-    }
-    .card {
-      background: #FFF; color: #000;
-      padding: 1rem; border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    .theme-switch .slider::before {
+      content: ""; position: absolute; width: 20px; height: 20px;
+      background: white; border-radius: 50%; top: 2px; left: 2px;
       transition: transform .3s;
     }
-    .card:hover { transform: translateY(-4px); }
-    .testimonial { font-style: italic; }
+    .theme-switch input:checked + .slider { background: var(--accent-color); }
+    .theme-switch input:checked + .slider::before { transform: translateX(26px); }
 
-    /* ===== Video + Overlay ===== */
-    #video-section { position: relative; text-align: center; }
-    #video-section iframe {
-      width: 100%; height: auto; max-width: 360px;
-      aspect-ratio: 16/9;
-      filter: blur(8px);
+    /* Micro-interacciones */
+    button, .card {
+      transition: transform .3s, box-shadow .3s;
     }
-    #video-overlay {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      background: rgba(0,0,0,0.85);
-      padding: 1.5rem; border-radius: 8px;
-      width: 90%; max-width: 320px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
-    #video-overlay h4 {
-      color: #FFF; margin-bottom: 1rem; font-size: 1.1rem;
-    }
-    #video-overlay input {
-      width: 100%; padding: .6rem; margin-bottom: .6rem;
-      border: none; border-radius: 4px; font-size: .95rem;
-    }
-    #video-overlay button {
-      width: 100%; padding: .6rem; border: none;
-      border-radius: 4px; background: #A3F7BF;
-      color: #000; font-weight:600; cursor:pointer;
-      transition: background .3s;
-    }
-    #video-overlay button:hover { background: #56C596; }
-
-    /* ===== Arbitraje ===== */
-    #arbitraje table {
-      width: 100%; max-width: 320px; margin: 1rem auto;
-      border-collapse: collapse; background: rgba(0,0,0,0.6);
-      font-size: .85rem;
-    }
-    #arbitraje th, #arbitraje td {
-      padding: .5rem .6rem;
-      border-bottom:1px solid #444;
-      text-align: center; color: #FFF;
+    button:hover, .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
 
-    /* ===== Cotizaciones del Día ===== */
-    #cotiza { padding-top: 0; }
-    #cotiza #cotizaciones {
-      background: rgba(0,0,0,0.6);
-      padding: 1rem; border-radius: 8px;
-      max-width: 320px; margin: .5rem auto; font-size: .9rem;
-      color: #A3F7BF;
+    /* Hero */
+    #hero {
+      position: relative; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; text-align: center;
+    }
+    #hero video {
+      position: absolute; top:50%; left:50%;
+      min-width:100%; min-height:100%; width:auto; height:auto;
+      transform: translate(-50%, -50%); z-index:-1; opacity:0.6;
+    }
+    #hero .inner { z-index:2; }
+    #hero .btn-cta {
+      margin-top: 1rem; padding: 1rem 2rem;
+      background: var(--accent-color); border: none;
+      border-radius: 4px; font-size: 1.2rem; font-weight: 600;
+      cursor: pointer;
     }
 
-    /* ===== Footer ===== */
-    .footer {
-      background: #1C1C1C; padding: 1.5rem 1rem; font-size: .8rem;
-      text-align: center;
+    section { padding: 60px 20px; }
+    #benefits .grid, #partners .grid, #trust .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 2rem;
     }
-    .footer a { color: #A3F7BF; margin: 0 .5rem; font-size: .85rem; }
+    .card {
+      background: #111; padding: 2rem; border-radius: 8px;
+    }
+    body.light-mode .card { background: #f5f5f5; }
 
-    /* ===== Responsive Nav ===== */
-    @media (max-width: 600px) {
-      .menu-toggle { display: block; }
-      nav {
-        display: none; position: absolute;
-        top: 56px; left: 0; right: 0;
-        background: rgba(0,0,0,0.9);
-        flex-direction: column; align-items: center;
-      }
-      nav.active { display: flex; }
-      nav a { padding: .75rem
+    details { margin-bottom: 1rem; }
+    summary { cursor: pointer; font-weight: 600; }
 
-, width: 100%; }
+    /* ROI */
+    #roi { text-align: center; }
+    #roi input { width: 120px; padding: .5rem; margin: .5rem; }
+    #roi .result { margin-top: 1rem; font-weight: bold; }
+
+    /* Countdown */
+    #countdown { font-size: 1.5rem; font-weight: 600; }
+
+    /* Exit intent popup */
+    #exitPopup {
+      display: none; position: fixed; top:0; left:0;
+      width:100%; height:100%; background: rgba(0,0,0,0.8);
+      align-items:center; justify-content:center;
+    }
+    #exitPopup .content {
+      background: #fff; color: #000;
+      padding: 2rem; border-radius: 8px; max-width: 400px;
+      text-align:center;
+    }
+    #exitPopup .close {
+      cursor: pointer; margin-top:1rem;
     }
   </style>
 </head>
 <body>
+  <!-- Switch tema -->
+  <label class="theme-switch">
+    <input type="checkbox" id="toggleTheme">
+    <span class="slider"></span>
+  </label>
 
-  <!-- Price Wheel -->
-  <div class="price-wheel">
-    <div class="wheel-container"></div>
+  <!-- Hero -->
+  <section id="hero">
+    <video src="video-bg.mp4" autoplay muted loop></video>
+    <div class="inner" data-aos="fade-up">
+      <h1>Formá tu criterio financiero con Atomic</h1>
+      <button class="btn-cta">Únete a Atomic</button>
+    </div>
+  </section>
+
+  <!-- Price Wheel Mejorada -->
+  <div class="price-wheel" data-aos="fade-right">
+    <!-- Aquí va tu código existente de price wheel con WebSocket para datos en vivo -->
   </div>
 
-  <!-- Header -->
-  <header>
-    <img src="logo_atomic.png" alt="Logo Atomic">
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-    <nav id="nav-menu">
-      <a href="#inicio">Inicio</a>
-      <a href="#about">¿Qué es Atomic?</a>
-      <a href="#benefits">Beneficios</a>
-      <a href="#courses">Cursos</a>
-      <a href="#testimonials">Testimonios</a>
-      <a href="#video-section">Video Intro</a>
-      <a href="#arbitraje">Arbitraje</a>
-      <a href="#cotiza">Cotizaciones</a>
-      <a href="#contact">Contacto</a>
-    </nav>
-  </header>
-
-  <main>
-    <!-- Hero -->
-    <section id="inicio" class="hero">
-      <h2>Formá tu criterio financiero con Atomic</h2>
-      <p>Únete a Atomic, la plataforma integral para potenciar tu crecimiento financiero, dominar mercados bursátiles y alcanzar la independencia económica.</p>
-      <a href="#about" class="button">Comenzá Hoy</a>
-    </section>
-
-    <!-- ¿Qué es Atomic? -->
-    <section id="about">
-      <h3>¿Qué es Atomic?</h3>
-      <p>Atomic es una comunidad exclusiva que ofrece contenido educativo premium sobre Finanzas, Criptomonedas y Mercados Bursátiles.</p>
-    </section>
-
-    <!-- Beneficios -->
-    <section id="benefits">
-      <h3>Beneficios de Suscribirte a Atomic</h3>
-      <ul>
-        <li>Acceso ilimitado a contenido de calidad en finanzas y trading.</li>
-        <li>Eventos presenciales exclusivos con expertos.</li>
-        <li>Comunidad privada para debatir y crecer.</li>
-        <li>Actualización permanente con oportunidades reales.</li>
-      </ul>
-    </section>
-
-    <!-- Cursos Destacados -->
-    <section id="courses">
-      <h3>Cursos Destacados</h3>
-      <div class="cards">
-        <div class="card">
-          <h4>Trading Profesional</h4>
-          <p>Aprendé técnicas y estrategias de trading utilizadas por traders expertos.</p>
-        </div>
-        <div class="card">
-          <h4>Arbitraje Financiero</h4>
-          <p>Dominá el arte de aprovechar diferencias de precios entre distintos mercados.</p>
-        </div>
-        <div class="card">
-          <h4>Estrategia de Airdrops</h4>
-          <p>Conocé cómo participar en campañas de airdrops para maximizar tus ganancias.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonios -->
-    <section id="testimonials">
-      <h3>Testimonios de Nuestra Comunidad</h3>
-      <div class="cards">
-        <div class="card testimonial">“Atomic transformó mi manera de entender el mercado.” – Juan Pérez</div>
-        <div class="card testimonial">“Pude mejorar significativamente mis rendimientos financieros.” – María González</div>
-      </div>
-    </section>
-
-    <!-- Video Intro con Overlay -->
-    <section id="video-section">
-      <iframe id="intro-video"
-              src="https://www.youtube.com/embed/cP-nE5tmK2Y"
-              frameborder="0" allowfullscreen></iframe>
-      <div id="video-overlay">
-        <h4>Para ver el video, registrate</h4>
-        <form id="registration-form">
-          <input type="email" id="email" placeholder="Tu email" required>
-          <input type="password" id="password" placeholder="Contraseña" required>
-          <button type="submit">Registrarme</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- Arbitraje de Dólar -->
-    <section id="arbitraje">
-      <h3>Arbitraje de Dólar – Tasas en Tiempo Real</h3>
-      <table>
-        <thead>
-          <tr><th>Moneda</th><th>Compra</th><th>Venta</th><th>Últ. Act.</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </section>
-
-    <!-- Cotizaciones del Día -->
-    <section id="cotiza">
-      <h3>Cotizaciones del día de hoy</h3>
-      <div id="cotizaciones">Cargando…</div>
-    </section>
-
-    <!-- CTA Final -->
-    <section id="contact">
-      <h3>No esperes más. Únete a Atomic y transformá tu futuro financiero</h3>
-      <a href="#inicio" class="button">Suscribite Ahora</a>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p>© 2025 Atomic – Todos los derechos reservados.</p>
-    <div>
-      <a href="#">Instagram</a> |
-      <a href="#">Twitter</a> |
-      <a href="#">YouTube</a>
+  <!-- Beneficios -->
+  <section id="benefits">
+    <h2 data-aos="fade-up">Nuestros Beneficios</h2>
+    <div class="grid">
+      <div class="card" data-aos="zoom-in"><img src="icon1.svg" alt="Análisis en vivo"><h3>Análisis en vivo</h3><p>Acceso a webinars en tiempo real.</p></div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="100"><img src="icon2.svg" alt="Comunidad 24/7"><h3>Comunidad 24/7</h3><p>Comparte y aprende con profesionales.</p></div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="200"><img src="icon3.svg" alt="Certificado oficial"><h3>Certificado avalado</h3><p>Respaldo académico y profesional.</p></div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="300"><img src="icon4.svg" alt="Eventos exclusivos"><h3>Eventos exclusivos</h3><p>Workshops presenciales.</p></div>
     </div>
-  </footer>
+  </section>
 
-  <script>
-    // Menú hamburguesa
-    function toggleMenu(){
-      document.getElementById('nav-menu').classList.toggle('active');
-    }
+  <!-- Testimonios -->
+  <section id="testimonials">
+    <h2 data-aos="fade-up">Testimonios</h2>
+    <div class="swiper-container" data-aos="fade-up" data-aos-delay="200">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide card"><img src="user1.jpg" alt="Usuario X"><p>"Mejore un 30% mis resultados."</p></div>
+        <div class="swiper-slide card"><img src="user2.jpg" alt="Usuario Y"><p>"La comunidad es increíble."</p></div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
 
-    // Rueda de precios
-    async function fetchPrices(){
-      const ids = [
-        'bitcoin','ethereum','binancecoin','bitcoin-gold','solana','cardano',
-        'ondo','elrond-erd-2','ethereum-classic','tump','dogecoin','chainlink',
-        'ripple','kusama','decentraland','uniswap','polkadot','curve-dao-token','avalanche-2'
-      ].join(',');
-      const data = await (await fetch(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`
-      )).json();
-      const cont = document.querySelector('.wheel-container');
-      cont.innerHTML = '';
-      Object.entries(data).concat(Object.entries(data)).forEach(([key,val])=>{
-        const d = document.createElement('div');
-        d.className='wheel-item';
-        d.textContent = `${key.charAt(0).toUpperCase()+key.slice(1)}: $${val.usd.toLocaleString()}`;
-        cont.appendChild(d);
-      });
-    }
-    fetchPrices(); setInterval(fetchPrices,30000);
+  <!-- FAQ -->
+  <section id="faq">
+    <h2 data-aos="fade-up">Preguntas Frecuentes</h2>
+    <details data-aos="fade-up"><summary>¿Cómo funciona la suscripción?</summary><p>Recibís acceso inmediato a todos los cursos y la comunidad.</p></details>
+    <details data-aos="fade-up"><summary>¿Puedo cancelar cuando quiera?</summary><p>Sí, sin letra chica y con devolución prorrogada.</p></details>
+  </section>
 
-    // Registro video
-    const overlay = document.getElementById('video-overlay');
-    const video  = document.getElementById('intro-video');
-    if(localStorage.getItem('atomicUser')){
-      overlay.style.display='none'; video.style.filter='none';
-    }
-    document.getElementById('registration-form')
-      .addEventListener('submit', e=>{
-        e.preventDefault();
-        localStorage.setItem('atomicUser',
-          JSON.stringify({email:e.target.email.value})
-        );
-        overlay.style.display='none'; video.style.filter='none';
-      });
+  <!-- Módulo Gratis -->
+  <section id="free-course" data-aos="fade-up">
+    <h2>Prueba un módulo gratis</h2>
+    <form id="freeForm"><input type="email" placeholder="Tu email" required><button type="submit">Descargar gratis</button></form>
+  </section>
 
-    // Arbitraje Dolarsi
-    async function loadArbitraje(){
-      const res = await fetch(
-        'https://www.dolarsi.com/api/api.php?type=valoresprincipales'
-      );
-      const data = await res.json();
-      const tipos = [
-        {k:'oficial',   l:'Dólar Oficial'},
-        {k:'blue',      l:'Dólar Blue'},
-        {k:'bolsa',     l:'Dólar Bolsa'},
-        {k:'contado',   l:'Dólar CCL'},
-        {k:'turista',   l:'Dólar Tarjeta'},
-        {k:'mayorista', l:'Dólar Mayorista'}
-      ];
-      const tbody = document.querySelector('#arbitraje tbody');
-      tbody.innerHTML='';
-      tipos.forEach(t=>{
-        const it = data.find(x=>
-          x.casa.nombre.toLowerCase().includes(t.k)
-        );
-        if(!it) return;
-        const buy  = parseFloat(it.casa.compra.replace(',','.'))||0;
-        const sell = parseFloat(it.casa.venta.replace(',','.'))||0;
-        const tr   = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${t.l}</td>
-          <td>$${buy.toFixed(2)}</td>
-          <td>$${sell.toFixed(2)}</td>
-          <td>${new Date().toLocaleTimeString()}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-    loadArbitraje(); setInterval(loadArbitraje,60000);
+  <!-- Calculadora ROI -->
+  <section id="roi" data-aos="fade-up">
+    <h2>Calculadora de ROI</n    </h2><input type="number" id="capital" placeholder="Capital inicial"><input type="number" id="months" placeholder="Meses"><button id="calcBtn">Calcular</button><div class="result" id="roiResult"></div>
+  </section>
 
-    // Cotizaciones del Día (Dolarsi)
-    async function loadCotizaciones() {
-      try {
-        const res  = await fetch(
-          'https://www.dolarsi.com/api/api.php?type=valoresprincipales'
-        );
-        const data = await res.json();
-        const tipos = [
-          { keyword: 'oficial',   label: 'Dólar Oficial' },
-          { keyword: 'blue',      label: 'Dólar Blue' },
-          { keyword: 'bolsa',     label: 'Dólar Bolsa' },
-          { keyword: 'contado',   label: 'Dólar CCL' },
-          { keyword: 'turista',   label: 'Dólar Tarjeta' },
-          { keyword: 'mayorista', label: 'Dólar Mayorista' }
-        ];
-        const cont = document.getElementById('cotizaciones');
-        cont.innerHTML = '';
-        tipos.forEach(t => {
-          const item = data.find(x =>
-            x.casa.nombre.toLowerCase().includes(t.keyword)
-          );
-          if (!item) return;
-          const compra = parseFloat(item.casa.compra.replace(',', '.')) || 0;
-          const venta  = parseFloat(item.casa.venta.replace(',', '.'))  || 0;
-          const p = document.createElement('p');
-          p.textContent =
-            `${t.label}: Compra $${compra.toFixed(2)} / Venta $${venta.toFixed(2)}`;
-          p.style.margin = '0.5rem 0';
-          cont.appendChild(p);
-        });
-      } catch (err) {
-        console.error('Error cargando cotizaciones:', err);
-        document.getElementById('cotizaciones')
-          .textContent = 'No se pudieron cargar las cotizaciones.';
-      }
-    }
-    loadCotizaciones();
-    setInterval(loadCotizaciones, 60000);
-  </script>
+  <!-- Cuenta regresiva -->
+  <section id="event" data-aos="fade-up">
+    <h2>Próximo webinar en vivo</h2>
+    <div id="countdown"></div>
+  </section>
 
-</body>
-</html>
+  <!-- Aliados -->
+  <section id="partners" data-aos="fade-up">
+    <h2>Aliados y medios</h2>
+    <div class="grid"><img src="logo1.png" alt="Bloomberg"><img src="logo2.png" alt="Stellar"></div>
+  </section>
+
+  <!-- Confianza -->
+  <section id="trust" data-aos="fade-up">
+    <h2>Confianza</h2>
+    <div class="grid">
+      <div class="card"><img src="moneyback.svg" alt="Garantía 30 días"><p>30 días de devolución</p></div>
+      <div class="card"><img src="cert.svg" alt="Certificación oficial"><p>Certificación oficial</p></div>
+    </div>
+  </section>
+
+  <!-- Popup exit-intent -->
+  <div id="exitPopup"><div class="content" role="dialog" aria-modal="true">
